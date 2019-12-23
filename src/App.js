@@ -9,7 +9,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLandingPage: false, //normalerweise true
+      isLandingPage: true, //normalerweise true
       API_KEY: "640a389395b55ad1cc223b5e3c81729f",
       searchCity: "",
       weatherData: []
@@ -18,8 +18,26 @@ class App extends Component {
     this.fetchWeather = this.fetchWeather.bind(this);
     this.onSearchCityChange = this.onSearchCityChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
-    this.displayWeather = this.displayWeather.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
+  }
+
+  deleteItem(id) {
+    this.state.weatherData.forEach(el => {
+      if (el.id === id) {
+        let index = this.state.weatherData.indexOf(el);
+        this.state.weatherData.splice(index, 1);
+        this.setState({
+          weatherData: this.state.weatherData.filter(i => i !== index)
+        });
+      }
+    });
+
+    if (this.state.weatherData.length === 0) {
+      this.setState({
+        isLandingPage: true
+      });
+    }
   }
 
   async fetchWeather() {
@@ -44,28 +62,6 @@ class App extends Component {
     console.log(data);
   }
 
-  displayWeather() {
-    console.log(this.state.weatherData);
-    if (this.state.weatherData.weather[0].main === "Rain") {
-      this.setState({
-        weatherImg:
-          "https://cdn.pixabay.com/photo/2019/10/06/22/46/umbrella-4531349_1280.png"
-      });
-    } else if (this.state.weatherData.weather[0].main === "Clouds") {
-      this.setState({
-        weatherImg:
-          "https://cdn.pixabay.com/photo/2014/04/03/11/56/cloud-312648_1280.png"
-      });
-    } else if (this.state.weatherData.weather[0].main === "Sun") {
-      this.setState({
-        weatherImg:
-          "https://cdn.pixabay.com/photo/2013/11/28/11/29/sun-220186_1280.jpg"
-      });
-    } else {
-      console.log("other weather type");
-    }
-  }
-
   onSearchCityChange(searchCity) {
     this.setState({
       searchCity: searchCity.target.value
@@ -74,7 +70,6 @@ class App extends Component {
 
   handleSearch() {
     this.fetchWeather();
-    // this.displayWeather();
   }
 
   onSearchSubmit(e) {
@@ -106,6 +101,7 @@ class App extends Component {
               <DisplayWeather
                 isLandingPage={this.state.isLandingPage}
                 weatherData={this.state.weatherData}
+                deleteItem={this.deleteItem}
               />
             )}
           />

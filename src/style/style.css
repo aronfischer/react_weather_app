@@ -46,4 +46,22 @@
 .af-city-name {
   font-size: 22px;
 }
+
+.af-delete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 0.5rem;
+  margin-top: 0.2rem;
+}
+
+.af-delete:hover {
+  -webkit-filter: brightness(70%);
+          filter: brightness(70%);
+}
+
+.af-delete:active {
+  -webkit-filter: brightness(40%);
+          filter: brightness(40%);
+}
 /*# sourceMappingURL=style.css.map */

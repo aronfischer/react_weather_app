@@ -28,6 +28,12 @@ const Weather = props => {
     <div className='col-11 col-sm-5 col-md-4'>
       <div className='card af-rounded af-box-shadow mt-5 p-0 '>
         <div className='card-body af-rounded-top af-dark text-white'>
+          <div
+            className='af-delete'
+            onClick={() => props.deleteItem(props.weatherObj.id)}
+          >
+            <i className='text-white far fa-trash-alt'></i>
+          </div>
           <div className='af-city-name'>{props.weatherObj.name}</div>
           <div>{props.weatherObj.sys.country}</div>
         </div>
@@ -48,7 +54,6 @@ const Weather = props => {
           alt=''
           className='card-img-overlay af-overlay-sign p-0 col-2 col-sm-3'
         />
-        <div className='card-img-overlay'>°C</div>
         <div className='card-body af-dark text-white af-rounded-bottom'>
           <div className='row'>
             <div className='col-6'>

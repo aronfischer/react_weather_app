@@ -26,6 +26,7 @@ const DisplayWeather = props => {
               fetchGif={fetchGif} //evt. unnötig
               weatherObj={weatherObj}
               isFahrenheit={isFahrenheit}
+              deleteItem={props.deleteItem}
             />
           ))
         : null}
