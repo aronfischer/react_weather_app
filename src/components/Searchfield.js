@@ -10,9 +10,11 @@ const SearchField = props => {
           placeholder='Enter a city'
           onChange={props.onSearchCityChange}
           value={props.searchCity}
+          onKeyDown={props.onSearchSubmit}
         />
         <div className='input-group-append'>
           <button
+            type='submit'
             className='ml-1 input-group-text btn btn-outline-success my-sm-0'
             onClick={props.handleSearch}
           >

@@ -8,6 +8,7 @@ const Home = props => {
         handleSearch={props.handleSearch}
         onSearchCityChange={props.onSearchCityChange}
         searchCity={props.searchCity}
+        onSearchSubmit={props.onSearchSubmit}
       />
     </div>
   );

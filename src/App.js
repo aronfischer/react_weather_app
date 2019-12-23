@@ -19,6 +19,7 @@ class App extends Component {
     this.onSearchCityChange = this.onSearchCityChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.displayWeather = this.displayWeather.bind(this);
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
   }
 
   async fetchWeather() {
@@ -76,6 +77,12 @@ class App extends Component {
     // this.displayWeather();
   }
 
+  onSearchSubmit(e) {
+    if (e.key === "Enter") {
+      this.handleSearch();
+    }
+  }
+
   render() {
     return (
       <Router>
@@ -89,6 +96,7 @@ class App extends Component {
                 isLandingPage={this.state.isLandingPage}
                 onSearchCityChange={this.onSearchCityChange}
                 searchCity={this.state.searchCity}
+                onSearchSubmit={this.onSearchSubmit}
               />
             )}
           />
