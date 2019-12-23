@@ -1,9 +1,16 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import SearchField from "./SearchField";
 
-class Home extends Component {
-  render() {
-    return <div></div>;
-  }
-}
+const Home = props => {
+  return (
+    <div className={`${props.isLandingPage === true ? "af-center-v" : "mt-3"}`}>
+      <SearchField
+        handleSearch={props.handleSearch}
+        onSearchCityChange={props.onSearchCityChange}
+        searchCity={props.searchCity}
+      />
+    </div>
+  );
+};
 
 export default Home;

@@ -1,0 +1,50 @@
+.af-center-v {
+  position: relative;
+  margin-top: 25%;
+}
+
+.af-overlay {
+  position: absolute;
+  top: 40%;
+  height: 20%;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+  font-size: 40px;
+  padding: 0;
+}
+
+.af-overlay-sign {
+  position: absolute;
+  //   top: 25%;
+  left: 75%;
+  //   height: 70px;
+  //   width: 70px;
+  height: auto;
+  border-radius: 50%;
+}
+
+.af-dark {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.af-rounded {
+  border-radius: 15px;
+}
+
+.af-rounded-top {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.af-rounded-bottom {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.af-box-shadow {
+  box-shadow: 2px 2px 20px;
+}
+
+.af-city-name {
+  font-size: 22px;
+}
