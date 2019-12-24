@@ -1,10 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Weather = props => {
   let WINDOW_HEIGHT = "500";
   let WINDOW_WIDTH = "1000";
 
   const [weatherImg, setWeatherImg] = useState("");
+
+  //---------------------
+  const [fahrenheit, setFahrenheit] = useState();
+  const [celsius, setCelsius] = useState();
+
+  // Use one temp object, change the value inside of if to celsius or fahrenheit, depending on wheather isFahrenheit ist true oder nicht
+  useEffect(() => {
+    setFahrenheit({
+      main_fahrenheit:
+        Math.round(
+          ((props.weatherObj.main.temp - 273.15) * (9 / 5) + 32) * 100
+        ) / 100,
+      min_fahrenheit:
+        Math.round(
+          ((props.weatherObj.main.temp_min - 273.15) * (9 / 5) + 32) * 100
+        ) / 100,
+      max_fahrenheit:
+        Math.round(
+          ((props.weatherObj.main.temp_max - 273.15) * (9 / 5) + 32) * 100
+        ) / 100
+    });
+    setCelsius({
+      main_celsius:
+        Math.round((props.weatherObj.main.temp - 273.15) * 100) / 100,
+      min_celsius:
+        Math.round((props.weatherObj.main.temp_min - 273.15) * 100) / 100,
+      max_celsius:
+        Math.round((props.weatherObj.main.temp_max - 273.15) * 100) / 100
+    });
+  }, []);
+
+  //------------------------
 
   const getWeatherCategory = (() => {
     if (weatherImg === "") {
@@ -45,7 +77,7 @@ const Weather = props => {
           />
         </div>
         <div className='card-img-overlay af-overlay'>
-          {`${props.weatherObj.main.temp} ${
+          {`${fahrenheit !== undefined ? fahrenheit.main_fahrenheit : null} ${
             props.isFahrenheit === true ? "°F" : "°C"
           }`}
         </div>
@@ -58,11 +90,11 @@ const Weather = props => {
           <div className='row'>
             <div className='col-6'>
               Min / Max <br />
-              {`${props.weatherObj.main.temp_min} ${
-                props.isFahrenheit === true ? "°F" : "°C"
-              } / ${props.weatherObj.main.temp_max} ${
-                props.isFahrenheit === true ? "°F" : "°C"
-              }`}
+              {`${
+                fahrenheit !== undefined ? fahrenheit.min_fahrenheit : null
+              } ${props.isFahrenheit === true ? "°F" : "°C"} / ${
+                fahrenheit !== undefined ? fahrenheit.max_fahrenheit : null
+              } ${props.isFahrenheit === true ? "°F" : "°C"}`}
             </div>
             <div className='col-6'>
               Humidity <br /> {props.weatherObj.main.humidity}

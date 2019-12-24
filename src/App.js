@@ -9,7 +9,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLandingPage: true, //normalerweise true
+      isLandingPage: false, //normalerweise true
       API_KEY: "640a389395b55ad1cc223b5e3c81729f",
       searchCity: "",
       weatherData: []

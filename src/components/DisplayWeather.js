@@ -15,7 +15,7 @@ const DisplayWeather = props => {
     response.json().then(function(response) {
       return response.data.images.original.url;
     });
-  };
+  }; // derzeit obsolet
 
   return (
     <div className='row container mx-auto'>
