@@ -64,4 +64,13 @@
   -webkit-filter: brightness(40%);
           filter: brightness(40%);
 }
+
+.af-toggle-celsius {
+  width: 4rem;
+  height: 2rem;
+  position: absolute;
+  top: 14%;
+  left: 70%;
+  cursor: pointer;
+}
 /*# sourceMappingURL=style.css.map */

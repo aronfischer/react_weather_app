@@ -5,36 +5,66 @@ const Weather = props => {
   let WINDOW_WIDTH = "1000";
 
   const [weatherImg, setWeatherImg] = useState("");
+  const [isFahrenheit, setIsFahrenheit] = useState(true);
 
   //---------------------
-  const [fahrenheit, setFahrenheit] = useState();
-  const [celsius, setCelsius] = useState();
+  const [temp, setTemp] = useState();
 
-  // Use one temp object, change the value inside of if to celsius or fahrenheit, depending on wheather isFahrenheit ist true oder nicht
   useEffect(() => {
-    setFahrenheit({
-      main_fahrenheit:
+    setTemp({
+      main_temp:
         Math.round(
           ((props.weatherObj.main.temp - 273.15) * (9 / 5) + 32) * 100
         ) / 100,
-      min_fahrenheit:
+      min_temp:
         Math.round(
           ((props.weatherObj.main.temp_min - 273.15) * (9 / 5) + 32) * 100
         ) / 100,
-      max_fahrenheit:
+      max_temp:
         Math.round(
           ((props.weatherObj.main.temp_max - 273.15) * (9 / 5) + 32) * 100
         ) / 100
     });
-    setCelsius({
-      main_celsius:
-        Math.round((props.weatherObj.main.temp - 273.15) * 100) / 100,
-      min_celsius:
+  }, []);
+
+  const changeToCelcius = () => {
+    setIsFahrenheit(false);
+
+    setTemp({
+      main_temp: Math.round((props.weatherObj.main.temp - 273.15) * 100) / 100,
+      min_temp:
         Math.round((props.weatherObj.main.temp_min - 273.15) * 100) / 100,
-      max_celsius:
+      max_temp:
         Math.round((props.weatherObj.main.temp_max - 273.15) * 100) / 100
     });
-  }, []);
+  };
+
+  const changeToFahrenheit = () => {
+    setIsFahrenheit(true);
+
+    setTemp({
+      main_temp:
+        Math.round(
+          ((props.weatherObj.main.temp - 273.15) * (9 / 5) + 32) * 100
+        ) / 100,
+      min_temp:
+        Math.round(
+          ((props.weatherObj.main.temp_min - 273.15) * (9 / 5) + 32) * 100
+        ) / 100,
+      max_temp:
+        Math.round(
+          ((props.weatherObj.main.temp_max - 273.15) * (9 / 5) + 32) * 100
+        ) / 100
+    });
+  };
+
+  const toggleCelcius = () => {
+    if (isFahrenheit) {
+      changeToCelcius();
+    } else {
+      changeToFahrenheit();
+    }
+  };
 
   //------------------------
 
@@ -77,8 +107,8 @@ const Weather = props => {
           />
         </div>
         <div className='card-img-overlay af-overlay'>
-          {`${fahrenheit !== undefined ? fahrenheit.main_fahrenheit : null} ${
-            props.isFahrenheit === true ? "°F" : "°C"
+          {`${temp !== undefined ? temp.main_temp : null} ${
+            isFahrenheit === true ? "°F" : "°C"
           }`}
         </div>
         <img
@@ -86,15 +116,21 @@ const Weather = props => {
           alt=''
           className='card-img-overlay af-overlay-sign p-0 col-2 col-sm-3'
         />
+        <span
+          className='text-white card-img-overlay af-toggle-celsius'
+          onClick={toggleCelcius}
+        >
+          {isFahrenheit === true ? "°C" : "°F"}
+        </span>
         <div className='card-body af-dark text-white af-rounded-bottom'>
           <div className='row'>
             <div className='col-6'>
               Min / Max <br />
-              {`${
-                fahrenheit !== undefined ? fahrenheit.min_fahrenheit : null
-              } ${props.isFahrenheit === true ? "°F" : "°C"} / ${
-                fahrenheit !== undefined ? fahrenheit.max_fahrenheit : null
-              } ${props.isFahrenheit === true ? "°F" : "°C"}`}
+              {`${temp !== undefined ? temp.min_temp : null} ${
+                isFahrenheit === true ? "°F" : "°C"
+              } / ${temp !== undefined ? temp.max_temp : null} ${
+                isFahrenheit === true ? "°F" : "°C"
+              }`}
             </div>
             <div className='col-6'>
               Humidity <br /> {props.weatherObj.main.humidity}

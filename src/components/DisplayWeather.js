@@ -5,8 +5,6 @@ const DisplayWeather = props => {
   let WINDOW_HEIGHT = "1000";
   let WINDOW_WIDTH = "1500";
 
-  const [isFahrenheit, setIsFahrenheit] = useState(true);
-
   const fetchGif = async props => {
     const response = await fetch(
       "https://api.giphy.com/v1/gifs/translate?api_key=JKSrVspEC3mgbeJ3po49DYMShj9VMCjf&s=cats",
@@ -25,7 +23,6 @@ const DisplayWeather = props => {
               key={Math.random()}
               fetchGif={fetchGif} //evt. unnötig
               weatherObj={weatherObj}
-              isFahrenheit={isFahrenheit}
               deleteItem={props.deleteItem}
             />
           ))
