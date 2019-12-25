@@ -9,10 +9,11 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLandingPage: false, //normalerweise true
+      isLandingPage: true, //normalerweise true
       API_KEY: "640a389395b55ad1cc223b5e3c81729f",
       searchCity: "",
-      weatherData: []
+      weatherData: [],
+      backgroundImgUrl: ""
     };
 
     this.fetchWeather = this.fetchWeather.bind(this);
@@ -20,6 +21,7 @@ class App extends Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
+    this.fetchBackgroundImg = this.fetchBackgroundImg.bind(this);
   }
 
   deleteItem(id) {
@@ -78,10 +80,30 @@ class App extends Component {
     }
   }
 
+  async fetchBackgroundImg(searchTerm) {
+    let response = await fetch(
+      `https://api.unsplash.com/search/photos/?client_id=d7bd6ff9a65e6750684a516dafd50350d806985ffb4a52979e97f6e0df5affa4&query=${searchTerm}`
+    );
+    let data = await response.json();
+
+    console.log(data);
+
+    this.setState({
+      backgroundImgUrl: `${data.results[3].urls.full}`
+    });
+  }
+
+  componentDidMount() {
+    this.fetchBackgroundImg("weather");
+  }
+
   render() {
     return (
       <Router>
-        <div className='App'>
+        <div
+          className='App'
+          style={{ backgroundImage: `url("${this.state.backgroundImgUrl}")` }}
+        >
           <Route
             exact
             path='/'

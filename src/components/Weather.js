@@ -6,9 +6,8 @@ const Weather = props => {
 
   const [weatherImg, setWeatherImg] = useState("");
   const [isFahrenheit, setIsFahrenheit] = useState(true);
-
-  //---------------------
   const [temp, setTemp] = useState();
+  const [cityImg, setCityImg] = useState();
 
   useEffect(() => {
     setTemp({
@@ -66,8 +65,6 @@ const Weather = props => {
     }
   };
 
-  //------------------------
-
   const getWeatherCategory = (() => {
     if (weatherImg === "") {
       if (props.weatherObj.weather[0].main === "Rain") {
@@ -86,6 +83,22 @@ const Weather = props => {
     }
   })();
 
+  const fetchCityPicture = async city => {
+    let response = await fetch(
+      `https://api.unsplash.com/search/photos/?client_id=d7bd6ff9a65e6750684a516dafd50350d806985ffb4a52979e97f6e0df5affa4&query=${city}`
+    );
+    let data = await response.json();
+
+    setCityImg(data.results[0].urls.small);
+    console.log(data);
+    console.log(city);
+    console.log(data.results[0].urls.small);
+  };
+
+  useEffect(() => {
+    fetchCityPicture(props.weatherObj.name);
+  }, []);
+
   return (
     <div className='col-11 col-sm-5 col-md-4'>
       <div className='card af-rounded af-box-shadow mt-5 p-0 '>
@@ -101,12 +114,12 @@ const Weather = props => {
         </div>
         <div className='card-header p-0 m-0 rounded-0 border-0'>
           <img
-            src={`https://unsplash.it/${WINDOW_WIDTH}/${WINDOW_HEIGHT}`}
+            src={`${cityImg}`}
             alt=''
             className='card-img-top rounded-0 border-0'
           />
         </div>
-        <div className='card-img-overlay af-overlay'>
+        <div className='card-img-overlay af-overlay mb-0'>
           {`${temp !== undefined ? temp.main_temp : null} ${
             isFahrenheit === true ? "°F" : "°C"
           }`}
